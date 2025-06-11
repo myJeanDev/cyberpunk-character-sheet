@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cyberpunk Character Creator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <div class="container gap">
+
+        <div class="stretchAcross flexColumn">
+            <div class="container gap">
+                <!-- Title -->
+                <div class="item backgroundMain roundedEdges setHeight">
+                    <div class="flexColumn">
+                        <h2>CYBERPUNK RED</h2>
+                        <p>character sheet</p>
+                    </div>
+                </div>
+
+                <!-- Character Name and Role -->
+                <div class="item backgroundMain roundedEdges">
+                    <div class="columnMobileRowDesktop gap">
+                        <div class="flexColumn">
+                            <label class="largerText">CHARACTER NAME</label>
+                            <div class="flexRow">
+                                <p class="sideBars">[</p>
+                                <input id="characterName" class="data roundedEdges" type="text" placeholder="data entry">
+                                <p class="sideBars">]</p>
+                            </div>
+
+                        </div>
+                        <div class="flexColumn">
+                            <label class="largerText">ROLE</label>
+                            <div class="flexRow" id="roleInsert">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HP, Wounds, Death Saves, Luck -->
+        <div class="item roundedEdges stretchAcross flexColumn backgroundMain">
+            <div class="columnMobileRowDesktop gap">
+                <div class="flexColumn individualTrackerContainer roundedEdges">
+                    <label class="statLabel">Current Health</label>
+                    <div class="whiteBackground"></div>
+                    <input id="trackerCURRENTHP" class="data removeBorder statInput" type="number" placeholder="0"></input>
+                </div>
+                <div class="flexColumn individualTrackerContainer roundedEdges">
+                    <label class="statLabel">Total Health</label>
+                    <div class="whiteBackground"></div>
+                    <input id="trackerCURRENTHP" class="removeBorder statInput" type="number" placeholder="0"></input>
+                </div>
+                <div class="flexColumn individualTrackerContainer roundedEdges">
+                    <label class="statLabel">Badly Wounded</label>
+                    <div class="whiteBackground"></div>
+                    <input id="trackerCURRENTHP" class="removeBorder statInput" type="number" placeholder="0"></input>
+                </div>
+                <div class="flexColumn individualTrackerContainer roundedEdges">
+                    <label class="statLabel">Death Saves</label>
+                    <div class="whiteBackground"></div>
+                    <input id="trackerCURRENTHP" class="removeBorder statInput" type="number" placeholder="0"></input>
+                </div>
+                <div class="flexColumn individualTrackerContainer roundedEdges">
+                    <label class="statLabel">Luck Remaining</label>
+                    <div class="whiteBackground"></div>
+                    <input id="trackerCURRENTHP" class="removeBorder statInput" type="number" placeholder="0"></input>
+                </div>
+            </div>
+        </div>
+        <!-- Stats Container -->
+        <div class="roundedEdges item stretchAcross flexColumn backgroundMain">
+            <div class="statListContainer">
+                <!-- StatsList -->
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">INT</label>
+                    <div class="whiteBackground"></div>
+                    <input id="INT" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">REF</label>
+                    <div class="whiteBackground"></div>
+                    <input id="REF" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">DEX</label>
+                    <div class="whiteBackground"></div>
+                    <input id="DEX" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">TECH</label>
+                    <div class="whiteBackground"></div>
+                    <input id="TECH" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">COOL</label>
+                    <div class="whiteBackground"></div>
+                    <input id="COOL" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">WILL</label>
+                    <div class="whiteBackground"></div>
+                    <input id="WILL" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">LUCK</label>
+                    <div class="whiteBackground"></div>
+                    <input id="LUCK" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">MOVE</label>
+                    <div class="whiteBackground"></div>
+                    <input id="MOVE" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">BODY</label>
+                    <div class="whiteBackground"></div>
+                    <input id="BODY" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <label class="statLabel">EMP</label>
+                    <div class="whiteBackground"></div>
+                    <input id="EMP" class="removeBorder statInput" type="number" value="0"></input>
+                </div>
+                <div class="flexColumn individualStatContainer roundedEdges">
+                    <p id="TOTAL" class="removeBorder">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Armor -->
+        <div class="item roundedEdges flexColumn backgroundMain setLargerHeight">
+            <div class="flexColumn gapLarger">
+                <div class="flexColumn">
+                    <div class="flexRow">
+                        <label>Head</label>
+                        <div id="headArmorInsert"></div>
+                    </div>
+                </div>
+                <div class="flexColumn">
+                    <div class="flexRow">
+                        <label>Body</label>
+                        <div id="bodyArmorInsert"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eurobucks -->
+        <div class="item roundedEdges flexColumn backgroundMain setLargerHeight">
+            <h3>EUROBUCKS</h3>
+            <div class="flexRow">
+                <p class="sideBars">[</p>
+                <input class="noBorder" type="number" placeholder="0">
+                <p class="sideBars">]</p>
+            </div>
+        </div>
+
+
+        <!-- Skills -->
+        <div class="item roundedEdges heightAuto flexColumn backgroundMain stretchAcross">
+            <h3>SKILLS</h3>
+            <div class="container">
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-INT-</h3>
+                    <p id="bonusNum_INT" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_INT"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-REF-</h3>
+                    <p id="bonusNum_REF" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_REF"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-DEX-</h3>
+                    <p id="bonusNum_DEX" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_DEX"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-TECH-</h3>
+                    <p id="bonusNum_TECH" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_TECH"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-COOL-</h3>
+                    <p id="bonusNum_COOL" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_COOL"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-WILL-</h3>
+                    <p id="bonusNum_WILL" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_WILL"></div>
+                </div>
+
+                <div class="flexColumn">
+                    <h3 class="skillHolderTitle">-EMP-</h3>
+                    <p id="bonusNum_EMP" class="attributeDisplayForSkills">+0</p>
+                    <div class="skillHolder" id="holder_EMP"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weapons -->
+        <div class="item roundedEdges heightAuto flexColumn backgroundMain stretchAcross">
+            <h3>WEAPONS</h3>
+            <div id="container_weapon" class="flexColumn gap">
+            </div>
+            <button class="addButton" id="add_weapon">+</button>
+        </div>
+
+
+        <!-- Cyberware -->
+        <div class="item roundedEdges flexColumn backgroundMain stretchAcross">
+            <h3>CYBERWARE</h3>
+            <!-- <img src="images/body.png" width="240" height="500" alt="outline of a body"> -->
+            <div id="container_cyberware" class="flexColumn gap">
+            </div>
+            <button class="addButton" id="add_cyberware">+</button>
+        </div>
+
+        <!-- Respect -->
+        <div class="item roundedEdges flexColumn backgroundMain">
+            <h3>RESPECT</h3>
+            <div id="container_respect" class="flexColumn gap">
+            </div>
+            <button class="addButton" id="add_respect">+</button>
+        </div>
+
+        <!-- Inventory -->
+        <div class="item roundedEdges flexColumn backgroundMain">
+            <h3>INVENTORY</h3>
+            <div id="container_inventory" class="flexColumn gapLarger">
+            </div>
+            <button class="addButton" id="add_inventory">+</button>
+        </div>
+
+    </div> <!-- Container End -->
+    <script src="home.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,397 @@
+:root {
+    --main: rgba(179, 71, 71, 0.7);
+    --background: #1b1b1b;
+    --text: #ffffff;
+}
+
+body {
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--background);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+button,
+input {
+    margin: 0;
+    color: var(--text);
+
+    font-family: 'Roboto Mono', monospace;
+}
+
+h3 {
+
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    text-wrap: nowrap;
+    font-size: 0.9rem;
+}
+
+select {
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    font-size: 0.8rem;
+
+    border: none;
+    background: transparent;
+    color: white;
+}
+
+
+.noBorder {
+    border: none;
+}
+
+.backgroundWhite {
+    position: absolute;
+
+    background: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--background);
+}
+
+input {
+    text-align: center;
+    background: none;
+    border: none;
+    caret-color: var(--text);
+    font-size: 1rem;
+    width: auto;
+    margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* -webkit-appearance: none; */
+    background: transparent;
+    margin: 0;
+}
+
+/* input[type=number] {
+    -moz-appearance: textfield;
+} */
+
+.largerText {
+    font-size: 1.1rem;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--text);
+    opacity: 0.5;
+    /* Firefox */
+}
+
+input::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: var(--text);
+}
+
+.gap {
+    gap: 5px;
+}
+
+.removeBorder {
+    border-color: transparent;
+}
+
+.roundedEdges {
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.flexRow {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.flexColumn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.columnMobileRowDesktop {
+    position: relative;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reallyTall {
+    position: relative;
+    height: 800px;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.skillHolderTitle {
+    width: 100%;
+    text-align: center;
+    padding: 3rem 0rem 1rem 0rem;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.skillHolder {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 10rem;
+    overflow: scroll;
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
+    -webkit-box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
+    -moz-box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
+}
+
+.backgroundMain {
+    background: var(--main);
+}
+
+.setHeight {
+    height: 50px !important;
+}
+
+.setLargerHeight {
+    height: 80px !important;
+}
+
+.gapLarger {
+    gap: 20px;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}
+
+.cyberwareSlot {
+    padding: 10px 5px 10px 5px;
+    border: 1px solid white;
+}
+
+.item {
+    align-self: flex-start;
+    position: relative;
+    padding: 20px 0px 20px 0px;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.gapLarger {
+    gap: 23px;
+}
+
+.sideBars {
+    font-size: 1.3rem;
+
+}
+
+.individualTrackerContainer {
+    position: relative;
+    align-self: flex-start;
+    overflow: hidden;
+    border: 1px solid var(--text);
+}
+
+.individualStatContainer {
+    position: relative;
+    border: 1px solid var(--text);
+    overflow: hidden;
+    width: 100%;
+}
+
+.individualStatContainer:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.individualTrackerContainer:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.statInput {
+    width: 3rem;
+}
+
+.statLabel {
+    z-index: 1;
+    margin: 0rem 1rem 0rem 1rem;
+    position: relative;
+    text-align: center;
+    color: var(--background);
+}
+
+.statListContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+}
+
+.addButton {
+    margin-top: 20px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--text);
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+}
+
+.alignLeft {
+    align-self: flex-start;
+    text-align: start;
+}
+
+.attributeDisplayForSkills {
+    margin: -0rem 0 1rem 0;
+}
+
+.alignRight {
+    position: absolute;
+    right: 5%;
+}
+
+.textAlignLeft {
+    text-align: start;
+}
+
+.addButton:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 10px var(--main);
+    background: var(--text);
+    color: var(--main);
+}
+
+.skillBonusNumber {
+    text-align: center;
+    margin-right: -.5rem;
+    font-size: 1.2rem;
+}
+
+#TOTAL {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.skillName {
+    border: none;
+}
+
+.damageDice {
+    margin: 0;
+    width: 1rem;
+}
+
+.border {
+    border: 1px solid white;
+    padding: 5px;
+}
+
+.inputSmaller {
+    width: 2rem !important;
+}
+
+.thinnerInput {
+    width: 9rem !important;
+}
+
+.fillWidth {
+    width: 90% !important;
+}
+
+.whiteBackground {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    padding: 3px 10px 0px 10px;
+    background: var(--text);
+}
+
+@media screen and (min-width: 800px) {
+
+    /* select, p, label, input{
+        font-size:0.9rem;
+    } */
+    .container {
+        margin-right: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+        grid-column-gap: 5px;
+        grid-row-gap: 5px;
+    }
+
+    .stretchAcross {
+        grid-column: 1 / -1;
+    }
+
+    .stretchDown {
+        grid-row-start: 4;
+        grid-row-end: 6;
+    }
+
+    .holder {
+        align-self: flex-start;
+        width: 100%;
+    }
+
+    .item {
+        width: auto;
+        height: auto;
+    }
+
+    .columnMobileRowDesktop {
+        flex-direction: row;
+    }
+
+    .statListContainer {
+        display: flex;
+        flex-direction: row;
+        column-width: auto;
+        gap: 10px;
+    }
+
+    .statLabel {
+        width: auto;
+        text-align: center;
+    }
+}
