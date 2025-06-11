@@ -1,330 +1,569 @@
-var attributeArray = ["INT","REF","DEX","TECH","COOL","WILL","LUCK","MOVE","BODY","EMP"]
-var diceArray = ["D2","D4","D6","D8","D10","D12","D20","D100"]
-var cyberwareLocationArray = ["Right Cybereye","Left Cybereye", "CyberAudio Suite","Right Cyberarm","Left Cyberarm","Neural Link","Right Cyberleg","Left Cyberleg","Internal Cyberware","External Cyberware","Fashionware","Borgware"]
-var roleArray = ["solo","netrunner","fixer","nomad","rockerboy","techie","corporate","cop"]
-var skillArray = [ {name:"Accounting", attribute: "INT"}, {name: "Acting", attribute:"COOL"}, {name: "Air Vehicle Tech", attribute:"TECH"}, {name: "Animal Handling ", attribute:"INT"}, {name: "Archery ", attribute:"REF"}, {name: "Athletics ", attribute:"DEX"}, {name: "Autofire", attribute:"REF"}, {name: "Basic Tech", attribute: "TECH"}, {name: "Brawling", attribute:"DEX"}, {name: "Bribery", attribute:"COOL"}, {name: "Bureaucracy", attribute:"INT"}, {name: "Business", attribute:"INT"}, {name: "Composition", attribute:"INT"}, {name: "Conceal/Reveal Object", attribute:"INT"}, {name: "Concentration", attribute:"WILL"}, {name: "Contortionist", attribute:"DEX"}, {name: "Conversation", attribute:"EMP"}, {name: "Criminology", attribute:"INT"}, {name: "Cryptography", attribute:"INT"}, {name: "Cyber Tech ", attribute:"TECH"}, {name: "Dance ", attribute:"DEX"}, {name: "Deduction ", attribute:"INT"}, {name: "Demolitions ", attribute:"TECH"}, {name: "Drive Land Vehicle ", attribute:"REF"}, {name: "Driving ", attribute:"REF"}, {name: "Education ", attribute:"INT"}, {name: "Electronics/Security Tech ", attribute:"TECH"}, {name: "Endurance ", attribute:"WILL"}, {name: "Evasion ", attribute:"DEX"}, {name: "First Aid ", attribute:"TECH"}, {name: "Forgery ", attribute:"TECH"}, {name: "Gamble ", attribute:"INT"}, {name: "Handgun ", attribute:"REF"}, {name: "Heavy Weapons", attribute:"REF"}, {name: "Human Perception", attribute:"EMP"}, {name: "Interrogation", attribute: "COOL"},{name: "Land Vehicle Tech", attribute: "TECH"}, {name: "Language", attribute: "INT"}, {name: "Library Search", attribute: "INT"}, {name: "Lipreading", attribute: "INT"}, {name: "Local Expert", attribute: "INT"}, {name: "Marksmanship", attribute: "REF"}, {name: "Martial Arts", attribute: "DEX"}, {name: "Melee Weapon", attribute: "DEX"}, {name: "Paint/Draw/Sculpt", attribute: "TECH"}, {name: "Paramedic ", attribute: "TECH"}, {name: "Perception", attribute: "INT"}, {name: "Personal Grooming", attribute: "COOL"}, {name: "Persuasion", attribute: "COOL"}, {name: "Photography/Film ", attribute: "TECH"}, {name: "Picklock", attribute: "TECH"}, {name: "Pickpocket", attribute: "TECH"}, {name: "Pilot Air Vehicle", attribute: "REF"}, {name: "Pilot Sea Vehicle ", attribute: "REF"}, {name: "Play Instrument ", attribute: "EMP"}, {name: "Resist Torture/Drugs ", attribute: "WILL"}, {name: "Riding ", attribute: "REF"}, {name: "Science", attribute: "INT"}, {name: "Sea Vehicle Tech", attribute: "TECH"}, {name: "Shoulder Arms", attribute: "REF"}, {name: "Stealth", attribute: "DEX"}, {name: "Streetwise", attribute: "COOL"}, {name: "Tactics", attribute: "INT"}, {name: "Tracking", attribute: "INT"}, {name: "Trading", attribute: "COOL"}, {name: "Wardrobe/Style", attribute: "COOL"}, {name: "Weapons Tech", attribute: "TECH"}, {name: "Wilderness Survival", attribute: "INT"}]
-var armorArray = ["none [SP-0]","Leathers [SP-4]","Kevlar [SP-7]", "LightArmorJack [SP-11]","Bodyweight Suit [SP-11]", "Medium Armorjack [SP-11]","Heavy Armorjack [SP-13]","Flak [SP-15]","Metalgear [SP-18]","Bulletproof Shield [HP-10]"]
+'use strict';
 
-//This is the format to store character data for export
-var storage = {
+// ========================================
+// CONSTANTS AND DATA ARRAYS
+// ========================================
+
+const ATTRIBUTES = ["INT", "REF", "DEX", "TECH", "COOL", "WILL", "LUCK", "MOVE", "BODY", "EMP"];
+
+const DICE_TYPES = ["D2", "D4", "D6", "D8", "D10", "D12", "D20", "D100"];
+
+const CYBERWARE_LOCATIONS = [
+    "Right Cybereye", "Left Cybereye", "CyberAudio Suite", "Right Cyberarm",
+    "Left Cyberarm", "Neural Link", "Right Cyberleg", "Left Cyberleg",
+    "Internal Cyberware", "External Cyberware", "Fashionware", "Borgware"
+];
+
+const ROLES = ["solo", "netrunner", "fixer", "nomad", "rockerboy", "techie", "corporate", "cop"];
+
+const SKILLS = [
+    { name: "Accounting", attribute: "INT" },
+    { name: "Acting", attribute: "COOL" },
+    { name: "Air Vehicle Tech", attribute: "TECH" },
+    { name: "Animal Handling", attribute: "INT" },
+    { name: "Archery", attribute: "REF" },
+    { name: "Athletics", attribute: "DEX" },
+    { name: "Autofire", attribute: "REF" },
+    { name: "Basic Tech", attribute: "TECH" },
+    { name: "Brawling", attribute: "DEX" },
+    { name: "Bribery", attribute: "COOL" },
+    { name: "Bureaucracy", attribute: "INT" },
+    { name: "Business", attribute: "INT" },
+    { name: "Composition", attribute: "INT" },
+    { name: "Conceal/Reveal Object", attribute: "INT" },
+    { name: "Concentration", attribute: "WILL" },
+    { name: "Contortionist", attribute: "DEX" },
+    { name: "Conversation", attribute: "EMP" },
+    { name: "Criminology", attribute: "INT" },
+    { name: "Cryptography", attribute: "INT" },
+    { name: "Cyber Tech", attribute: "TECH" },
+    { name: "Dance", attribute: "DEX" },
+    { name: "Deduction", attribute: "INT" },
+    { name: "Demolitions", attribute: "TECH" },
+    { name: "Drive Land Vehicle", attribute: "REF" },
+    { name: "Driving", attribute: "REF" },
+    { name: "Education", attribute: "INT" },
+    { name: "Electronics/Security Tech", attribute: "TECH" },
+    { name: "Endurance", attribute: "WILL" },
+    { name: "Evasion", attribute: "DEX" },
+    { name: "First Aid", attribute: "TECH" },
+    { name: "Forgery", attribute: "TECH" },
+    { name: "Gamble", attribute: "INT" },
+    { name: "Handgun", attribute: "REF" },
+    { name: "Heavy Weapons", attribute: "REF" },
+    { name: "Human Perception", attribute: "EMP" },
+    { name: "Interrogation", attribute: "COOL" },
+    { name: "Land Vehicle Tech", attribute: "TECH" },
+    { name: "Language", attribute: "INT" },
+    { name: "Library Search", attribute: "INT" },
+    { name: "Lipreading", attribute: "INT" },
+    { name: "Local Expert", attribute: "INT" },
+    { name: "Marksmanship", attribute: "REF" },
+    { name: "Martial Arts", attribute: "DEX" },
+    { name: "Melee Weapon", attribute: "DEX" },
+    { name: "Paint/Draw/Sculpt", attribute: "TECH" },
+    { name: "Paramedic", attribute: "TECH" },
+    { name: "Perception", attribute: "INT" },
+    { name: "Personal Grooming", attribute: "COOL" },
+    { name: "Persuasion", attribute: "COOL" },
+    { name: "Photography/Film", attribute: "TECH" },
+    { name: "Picklock", attribute: "TECH" },
+    { name: "Pickpocket", attribute: "TECH" },
+    { name: "Pilot Air Vehicle", attribute: "REF" },
+    { name: "Pilot Sea Vehicle", attribute: "REF" },
+    { name: "Play Instrument", attribute: "EMP" },
+    { name: "Resist Torture/Drugs", attribute: "WILL" },
+    { name: "Riding", attribute: "REF" },
+    { name: "Science", attribute: "INT" },
+    { name: "Sea Vehicle Tech", attribute: "TECH" },
+    { name: "Shoulder Arms", attribute: "REF" },
+    { name: "Stealth", attribute: "DEX" },
+    { name: "Streetwise", attribute: "COOL" },
+    { name: "Tactics", attribute: "INT" },
+    { name: "Tracking", attribute: "INT" },
+    { name: "Trading", attribute: "COOL" },
+    { name: "Wardrobe/Style", attribute: "COOL" },
+    { name: "Weapons Tech", attribute: "TECH" },
+    { name: "Wilderness Survival", attribute: "INT" }
+];
+
+const ARMOR_OPTIONS = [
+    "none [SP-0]", "Leathers [SP-4]", "Kevlar [SP-7]", "LightArmorJack [SP-11]",
+    "Bodyweight Suit [SP-11]", "Medium Armorjack [SP-11]", "Heavy Armorjack [SP-13]",
+    "Flak [SP-15]", "Metalgear [SP-18]", "Bulletproof Shield [HP-10]"
+];
+
+// ========================================
+// CHARACTER DATA STORAGE
+// ========================================
+
+const characterData = {
     characterName: "",
-    role: 0, //index for roleArray
-    trackers: {currentHP: 0, TotalHP:0, SeriouslyWounded:0,DeathSaves:0,LuckRemaining:0},
-    armor: {head:0,body:0},
+    role: 0,
+    trackers: {
+        currentHP: 0,
+        totalHP: 0,
+        seriouslyWounded: 0,
+        deathSaves: 0,
+        luckRemaining: 0
+    },
+    attributes: {},
+    armor: { head: 0, body: 0 },
     euroBucks: 0,
-    skills: [{name:"",bonus:0}],
-    weapons:[{name:"",diceAmount:0,diceType:0}],
-    cyberware:[{name:"",data:"",location:0}],
-    respect:[{name:"",amount:0}],
-    inventory:[""]
-}
+    skills: [],
+    weapons: [],
+    cyberware: [],
+    respect: [],
+    inventory: []
+};
 
-
-
-
-const slot = {
+const slotPrototype = {
     parent: null,
     children: []
 };
 
-function getAllAttributeElms(){
-    var arrayOfAttributeElms = [];
-    attributeArray.forEach((element) => arrayOfAttributeElms.push(document.getElementById(element)));
-    return arrayOfAttributeElms;
+let skillResults = [];
+
+// ========================================
+// UTILITY FUNCTIONS
+// ========================================
+
+/**
+ * Safely get element by ID with error handling
+ * @param {string} id - Element ID
+ * @returns {Element|null} - DOM element or null if not found
+ */
+function getElement(id) {
+    const element = document.getElementById(id);
+    if (!element) {
+        console.warn(`Element with ID '${id}' not found`);
+    }
+    return element;
 }
 
-function addOnChangeAttribute(){
-    getAllAttributeElms().forEach((element) => element.addEventListener("change", (event) => {
-        updateAttributeTotal();
-        updateAttributeBonus(element);
-    }) );
-}
-function updateAttributeBonus(element){
-    var elm = document.getElementById("bonusNum_" + element.id)
-    console.log(elm, "bonusNum_" + element.id);
-    elm.innerHTML = "+" + element.value
+/**
+ * Create a text paragraph element
+ * @param {string} text - Text content
+ * @returns {HTMLParagraphElement} - Paragraph element
+ */
+function createTextElement(text) {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    return paragraph;
 }
 
-function updateAttributeTotal(){
-    var totalCount = 0;
-    getAllAttributeElms().forEach((element) => {
-        if(element.value != ""){
-            totalCount += parseInt(element.value);
-            console.log(totalCount);
+/**
+ * Create a dropdown select element
+ * @param {Array} options - Array of option strings
+ * @returns {HTMLSelectElement} - Select element
+ */
+function createDropdown(options) {
+    const selectElement = document.createElement("select");
+
+    options.forEach(optionText => {
+        const option = document.createElement("option");
+        option.textContent = optionText;
+        option.value = optionText;
+        selectElement.appendChild(option);
+    });
+
+    return selectElement;
+}
+
+/**
+ * Create a flex row container
+ * @returns {HTMLDivElement} - Div element with flex row styling
+ */
+function createFlexRow() {
+    const row = document.createElement("div");
+    row.classList.add("flexRow", "gap");
+    return row;
+}
+
+/**
+ * Add sidebar brackets to an element
+ * @param {HTMLElement} element - Element to wrap
+ * @returns {HTMLDivElement} - Wrapped element with sidebars
+ */
+function addSideBars(element) {
+    const container = document.createElement("div");
+    container.classList.add("flexRow");
+
+    const leftBracket = createTextElement("[ ");
+    const rightBracket = createTextElement(" ]");
+
+    leftBracket.classList.add("sideBars");
+    rightBracket.classList.add("sideBars");
+
+    container.appendChild(leftBracket);
+    container.appendChild(element);
+    container.appendChild(rightBracket);
+
+    return container;
+}
+
+/**
+ * Store slot information for data management
+ * @param {HTMLElement} element - Element to store
+ * @param {HTMLElement} parent - Parent container
+ */
+function storeSlot(element, parent) {
+    const slot = Object.create(slotPrototype);
+    slot.parent = parent;
+    slot.element = element;
+    // Could extend this to actually store in characterData
+}
+
+// ========================================
+// ATTRIBUTE MANAGEMENT
+// ========================================
+
+/**
+ * Get all attribute input elements
+ * @returns {Array<HTMLInputElement>} - Array of attribute input elements
+ */
+function getAllAttributeElements() {
+    return ATTRIBUTES.map(attr => getElement(attr)).filter(Boolean);
+}
+
+/**
+ * Update the total of all attributes
+ */
+function updateAttributeTotal() {
+    const total = getAllAttributeElements().reduce((sum, element) => {
+        const value = parseInt(element.value) || 0;
+        return sum + value;
+    }, 0);
+
+    const totalElement = getElement("TOTAL");
+    if (totalElement) {
+        totalElement.textContent = total.toString();
+    }
+}
+
+/**
+ * Update attribute bonus display
+ * @param {HTMLInputElement} attributeElement - The attribute input element
+ */
+function updateAttributeBonus(attributeElement) {
+    const bonusElement = getElement(`bonusNum_${attributeElement.id}`);
+    if (bonusElement) {
+        const value = parseInt(attributeElement.value) || 0;
+        bonusElement.textContent = `+${value}`;
+    }
+}
+
+/**
+ * Find skill attribute by skill name
+ * @param {string} skillName - Name of the skill
+ * @returns {string} - Attribute name
+ */
+function findSkillAttribute(skillName) {
+    const skill = SKILLS.find(s => s.name === skillName);
+    return skill ? skill.attribute : "";
+}
+
+/**
+ * Initialize attribute event listeners
+ */
+function initializeAttributes() {
+    getAllAttributeElements().forEach(element => {
+        element.addEventListener("change", () => {
+            updateAttributeTotal();
+            updateAttributeBonus(element);
+            updateAllSkillResults();
+        });
+    });
+}
+
+// ========================================
+// SKILL MANAGEMENT
+// ========================================
+
+/**
+ * Update all skill calculation results
+ */
+function updateAllSkillResults() {
+    SKILLS.forEach(skill => {
+        const inputElement = getElement(`input_${skill.name}`);
+        const outputElement = getElement(`output_${skill.name}`);
+        const attributeElement = getElement(skill.attribute);
+
+        if (inputElement && outputElement && attributeElement) {
+            const skillValue = parseInt(inputElement.value) || 0;
+            const attributeValue = parseInt(attributeElement.value) || 0;
+            const total = skillValue + attributeValue;
+
+            outputElement.textContent = `= ${total >= 10 ? total : ` ${total}`}`;
         }
     });
-    var statTotalElm = document.getElementById("TOTAL");
-    statTotalElm.innerText = totalCount.toString();
-}
-addOnChangeAttribute();
-
-
-function giveAddButtonFunctionality(buttonName){
-    var button = document.getElementById(buttonName);
-    console.log(buttonName.toString());
-    var containerName = buttonName.toString().split("_");
-    var parentContainerName = "container_" + containerName[1];
-    var parentContainer = document.getElementById(parentContainerName);
-
-    if(containerName[1] == "skill"){
-        button.addEventListener("click", function (event){
-            createSkillSlot(parentContainer);
-        });
-    }
-    if(containerName[1] == "weapon"){
-        button.addEventListener("click", function (event){
-            createWeaponSlot(parentContainer);
-        });
-    }
-    if(containerName[1] == "cyberware"){
-        button.addEventListener("click", function (event){
-            createCyberwareSlot(parentContainer);
-        });
-    }
-    if(containerName[1] == "respect"){
-        button.addEventListener("click", function (event){
-            createRespectSlot(parentContainer);
-        });
-    }
-    if(containerName[1] == "inventory"){
-        button.addEventListener("click", function (event){
-            createInventorySlot(parentContainer);
-        });
-    }
 }
 
-var skillResults = []
-//cycle through all skills and create them
-function createSkillSlot(){
-    for(var i=0; i < skillArray.length;i++){
-        var row = createRow();
+/**
+ * Create skill input and display elements
+ */
+function createSkillSlots() {
+    SKILLS.forEach(skill => {
+        const container = getElement(`holder_${skill.attribute}`);
+        if (!container) return;
+
+        const row = createFlexRow();
+        row.classList.add("width100", "alignLeft", "textAlignLeft");
         row.style.position = "relative";
-        row.classList.add("width100");
-        row.classList.add("alignLeft");
-        var skillName = createText(skillArray[i].name);
 
+        // Create skill input
+        const skillInput = document.createElement("input");
+        skillInput.type = "number";
+        skillInput.id = `input_${skill.name}`;
+        skillInput.classList.add("inputSmaller");
+        skillInput.value = "0";
+        skillInput.placeholder = "0";
 
-        var numInput = document.createElement("input");
-        numInput.type = "number";
-        numInput.id = "input_" + skillArray[i].name;
-        numInput.classList.add("inputSmaller");
-        numInput.value = 0;
+        // Create skill name label
+        const skillName = createTextElement(skill.name);
 
-        row.appendChild(numInput);
-        row.appendChild(skillName);
+        // Create result display
+        const resultContainer = document.createElement("div");
+        resultContainer.classList.add("flexRow", "alignRight");
 
-        var cont = document.createElement("div");
-        cont.classList.add("flexRow");
-        cont.classList.add("alignRight");
+        const result = createTextElement("= 0");
+        result.id = `output_${skill.name}`;
+        resultContainer.appendChild(result);
 
-        var result = createText("= 0");
-        result.id = "output_" + skillArray[i].name;
+        // Add change event listener
+        skillInput.addEventListener("change", () => {
+            const skillValue = parseInt(skillInput.value) || 0;
+            const attributeElement = getElement(skill.attribute);
+            const attributeValue = parseInt(attributeElement?.value) || 0;
+            const total = skillValue + attributeValue;
 
-        numInput.addEventListener("change", (event) => {
-            var inputElm = event.target.id;
-            var inputVal = event.target.value;
-            var skillName = inputElm.split("_")[1];
-            var attributeName = searchSkillListForAttribute(skillArray, skillName);
-            var attributeBonusValue = document.getElementById(attributeName).value;
-            var outputElm = document.getElementById("output_"+skillName);
-            var final = parseInt(inputVal) + parseInt(attributeBonusValue);
-            if(final >= 10){
-                outputElm.innerHTML = "=" + final;
-            }else{
-                outputElm.innerHTML = "="+ " " + final;
-            }
+            result.textContent = `= ${total >= 10 ? total : ` ${total}`}`;
         });
 
         skillResults.push(result);
-        cont.appendChild(result);
-        row.appendChild(cont);
 
-        row.classList.add("alignLeft");
-        row.classList.add("textAlignLeft");
-        document.getElementById("holder_" + skillArray[i].attribute).appendChild(row);
-    }
+        row.appendChild(skillInput);
+        row.appendChild(skillName);
+        row.appendChild(resultContainer);
+
+        container.appendChild(row);
+    });
 }
 
-function searchSkillListForAttribute(inArray, compare){
-    for(var i =0; i < inArray.length; i++){
-        if (inArray[i].name == compare){
-            return inArray[i].attribute;
-        }
-    }
-    return "";
+// ========================================
+// SLOT CREATION FUNCTIONS
+// ========================================
+
+/**
+ * Create a weapon slot
+ * @param {HTMLElement} parentContainer - Parent container element
+ */
+function createWeaponSlot(parentContainer) {
+    const row = createFlexRow();
+
+    // Weapon name input
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.placeholder = "data entry";
+    nameInput.classList.add("textAlignLeft");
+
+    // Damage dice amount input
+    const diceAmountInput = document.createElement("input");
+    diceAmountInput.type = "number";
+    diceAmountInput.placeholder = "0";
+    diceAmountInput.classList.add("inputSmaller");
+
+    // Dice type dropdown
+    const diceTypeDropdown = createDropdown(DICE_TYPES);
+
+    row.appendChild(nameInput);
+    row.appendChild(diceAmountInput);
+    row.appendChild(diceTypeDropdown);
+
+    const wrappedRow = addSideBars(row);
+    parentContainer.appendChild(wrappedRow);
+    storeSlot(wrappedRow, parentContainer);
 }
 
-function createRespectSlot(parentContainer){
-    var row = createRow();
+/**
+ * Create a cyberware slot
+ * @param {HTMLElement} parentContainer - Parent container element
+ */
+function createCyberwareSlot(parentContainer) {
+    const row = document.createElement("div");
+    row.classList.add("flexRow", "cyberwareSlot", "roundedEdges");
 
-    var textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.classList.add("noBorder");
-    textInput.placeholder = "data entry";
-    row.appendChild(textInput);
-
-    var numInput = document.createElement("input");
-    numInput.type = "number";
-    numInput.classList.add("noBorder");
-    numInput.placeholder = "0";
-    numInput.classList.add("inputSmaller");
-    row.appendChild(numInput);
-    row = addSideBars(row);
-    parentContainer.appendChild(row);
-    storeSlot(row, parentContainer);
-}
-
-function createWeaponSlot(parentContainer){
-    var row = createRow();
-
-    var textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.placeholder = "data entry";
-    textInput.classList.add("textAlignLeft");
-    row.appendChild(textInput);
-
-    var numInput = document.createElement("input");
-    numInput.type = "number";
-    numInput.placeholder = 0;
-    numInput.classList.add("inputSmaller");
-    row.appendChild(numInput);
-
-    var dropDown = createDropDown(diceArray);
-    row.appendChild(dropDown);
-    row = addSideBars(row);
-    parentContainer.appendChild(row);
-    storeSlot(row, parentContainer);
-}
-
-function createCyberwareSlot(parentContainer){
-    var row = createRow();
-    row.classList.add("flexRow");
-    row.classList.add("cyberwareSlot");
-    row.classList.add("roundedEdges");
-
-    var column = document.createElement("div");
+    const column = document.createElement("div");
     column.classList.add("flexColumn");
 
+    // Cyberware name input
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.placeholder = "data entry";
+    nameInput.classList.add("textAlignLeft", "thinnerInput");
 
-    var textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.placeholder = "data entry";
-    textInput.classList.add("textAlignLeft");
-    textInput.classList.add("thinnerInput");
-    textInput = addSideBars(textInput);
+    // Cyberware data input
+    const dataInput = document.createElement("input");
+    dataInput.type = "text";
+    dataInput.placeholder = "data entry";
+    dataInput.classList.add("textAlignLeft", "thinnerInput");
 
-    var dataText = document.createElement("input");
-    dataText.type = "text";
-    dataText.placeholder = "data entry";
-    dataText.classList.add("textAlignLeft");
-    dataText.classList.add("thinnerInput");
-    dataText = addSideBars(dataText);
+    const wrappedNameInput = addSideBars(nameInput);
+    const wrappedDataInput = addSideBars(dataInput);
 
-    column.appendChild(textInput);
-    column.appendChild(dataText);
+    column.appendChild(wrappedNameInput);
+    column.appendChild(wrappedDataInput);
+
+    // Location dropdown
+    const locationDropdown = createDropdown(CYBERWARE_LOCATIONS);
+    locationDropdown.classList.add("textAlignLeft");
+
     row.appendChild(column);
+    row.appendChild(locationDropdown);
 
-    var placement = createDropDown(cyberwareLocationArray);
-    placement.classList.add("textAlignLeft");
-    row.appendChild(placement);
-
-    // row = addSideBars(row);
     parentContainer.appendChild(row);
     storeSlot(row, parentContainer);
 }
 
-function createInventorySlot(parentContainer){
-    var input = document.createElement("input");
-    input.classList.add("fillWidth");
-    input.classList.add("noBorder");
+/**
+ * Create a respect slot
+ * @param {HTMLElement} parentContainer - Parent container element
+ */
+function createRespectSlot(parentContainer) {
+    const row = createFlexRow();
+
+    // Respect source input
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.classList.add("noBorder");
+    nameInput.placeholder = "data entry";
+
+    // Respect amount input
+    const amountInput = document.createElement("input");
+    amountInput.type = "number";
+    amountInput.classList.add("noBorder", "inputSmaller");
+    amountInput.placeholder = "0";
+
+    row.appendChild(nameInput);
+    row.appendChild(amountInput);
+
+    const wrappedRow = addSideBars(row);
+    parentContainer.appendChild(wrappedRow);
+    storeSlot(wrappedRow, parentContainer);
+}
+
+/**
+ * Create an inventory slot
+ * @param {HTMLElement} parentContainer - Parent container element
+ */
+function createInventorySlot(parentContainer) {
+    const input = document.createElement("input");
+    input.classList.add("fillWidth", "noBorder");
     input.placeholder = "data entry";
-    input = addSideBars(input);
-    input.classList.add("fillWidth");
 
-    parentContainer.appendChild(input);
-    storeSlot(input, parentContainer);
+    const wrappedInput = addSideBars(input);
+    wrappedInput.classList.add("fillWidth");
+
+    parentContainer.appendChild(wrappedInput);
+    storeSlot(wrappedInput, parentContainer);
 }
 
-function createRow(){
-    var row = document.createElement("div");
-    row.classList.add("flexRow");
-    row.classList.add("gap");
-    return row;
-}
+// ========================================
+// BUTTON FUNCTIONALITY
+// ========================================
 
-function addSideBars(in_element){
-    var row = document.createElement("div");
-    row.classList.add("flexRow");
-    row.style.alignContent = "center";
-    row.style.alignItems = "center";
-    row.style.justifyItems = "center";
-    row.style.justifyContent = "center";
+/**
+ * Add functionality to add buttons
+ * @param {string} buttonId - ID of the button element
+ */
+function setupAddButton(buttonId) {
+    const button = getElement(buttonId);
+    if (!button) return;
 
-    var leftP = createText("[ ");
-    leftP.classList.add("sideBars");
-    leftP.style.alignSelf = "left";
+    const [, containerType] = buttonId.split("_");
+    const containerId = `container_${containerType}`;
+    const container = getElement(containerId);
 
-    var rightP = createText(" ]");
-    rightP.classList.add("sideBars");
-    rightP.style.alignSelf = "right";
+    if (!container) return;
 
-    row.appendChild(leftP);
-    row.appendChild(in_element);
-    row.appendChild(rightP);
+    const slotCreators = {
+        weapon: createWeaponSlot,
+        cyberware: createCyberwareSlot,
+        respect: createRespectSlot,
+        inventory: createInventorySlot
+    };
 
-    return row;
-}
-function createDropDown(in_options){
-    var selectElement = document.createElement("select");
-    for(var i=0;i < in_options.length;i++){
-        var option = document.createElement("option")
-        option.text = in_options[i];
-        selectElement.appendChild(option);
+    const createSlot = slotCreators[containerType];
+    if (createSlot) {
+        button.addEventListener("click", () => createSlot(container));
     }
-    return selectElement;
-}
-function createText(in_string){
-    var paragragh = document.createElement("p");
-    var text = document.createTextNode(in_string);
-    paragragh.appendChild(text);
-    return paragragh;
 }
 
-function storeSlot(row, parentContainer){
-    var createdSlot = Object.create(slot);
-    var array = createdSlot.children;
-    createdSlot.children = array;
-    storage.push(createdSlot);
-    createdSlot.parent = parentContainer;
+// ========================================
+// DROPDOWN INITIALIZATION
+// ========================================
+
+/**
+ * Create and insert role dropdown
+ */
+function createRoleDropdown() {
+    const container = getElement("roleInsert");
+    if (container) {
+        const dropdown = createDropdown(ROLES);
+        const wrappedDropdown = addSideBars(dropdown);
+        container.appendChild(wrappedDropdown);
+    }
 }
 
-function createRoleDropdown(){
-    var insertPlacement = document.getElementById("roleInsert");
-    var dropdown = createDropDown(roleArray);
-    dropdown = addSideBars(dropdown);
-    insertPlacement.appendChild(dropdown);
+/**
+ * Create and insert armor dropdowns
+ */
+function createArmorDropdowns() {
+    const bodyContainer = getElement("bodyArmorInsert");
+    const headContainer = getElement("headArmorInsert");
+
+    if (bodyContainer) {
+        const bodyDropdown = createDropdown(ARMOR_OPTIONS);
+        bodyDropdown.classList.add("inputMedium");
+        const wrappedBodyDropdown = addSideBars(bodyDropdown);
+        bodyContainer.appendChild(wrappedBodyDropdown);
+    }
+
+    if (headContainer) {
+        const headDropdown = createDropdown(ARMOR_OPTIONS);
+        headDropdown.classList.add("inputMedium");
+        const wrappedHeadDropdown = addSideBars(headDropdown);
+        headContainer.appendChild(wrappedHeadDropdown);
+    }
 }
 
-function createBodyArmorDropdown(){
-    var bodyInsert = document.getElementById("bodyArmorInsert");
-    var bodyDropdown = createDropDown(armorArray);
-    bodyDropdown.classList.add("inputMedium");
-    bodyDropdown = addSideBars(bodyDropdown);
-    bodyInsert.appendChild(bodyDropdown);
+// ========================================
+// INITIALIZATION
+// ========================================
 
-    var headInsert = document.getElementById("headArmorInsert");
-    var headDropdown = createDropDown(armorArray);
-    headDropdown.classList.add("inputMedium");
-    headDropdown = addSideBars(headDropdown);
-    headInsert.appendChild(headDropdown);
+/**
+ * Initialize the character sheet application
+ */
+function initializeApp() {
+    // Initialize attributes
+    initializeAttributes();
+
+    // Create skill slots
+    createSkillSlots();
+
+    // Setup add buttons
+    ["add_weapon", "add_cyberware", "add_respect", "add_inventory"].forEach(setupAddButton);
+
+    // Create dropdowns
+    createRoleDropdown();
+    createArmorDropdowns();
+
+    console.log("Cyberpunk Character Sheet initialized successfully");
 }
 
-//(buttonName, [text, string], [select,options], number)
-giveAddButtonFunctionality("add_weapon");
-giveAddButtonFunctionality("add_cyberware");
-giveAddButtonFunctionality("add_respect");
-giveAddButtonFunctionality("add_inventory");
-
-createRoleDropdown();
-createBodyArmorDropdown();
-createSkillSlot();
+// Start the application when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
