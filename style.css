@@ -1,9 +1,15 @@
+/* ========================================
+   CSS VARIABLES
+   ======================================== */
 :root {
     --main: rgba(179, 71, 71, 0.7);
     --background: #1b1b1b;
     --text: #ffffff;
 }
 
+/* ========================================
+   BASE STYLES & TYPOGRAPHY
+   ======================================== */
 body {
     font-weight: normal;
     display: flex;
@@ -21,15 +27,14 @@ h6,
 p,
 label,
 button,
-input {
+input,
+select {
     margin: 0;
     color: var(--text);
-
     font-family: 'Roboto Mono', monospace;
 }
 
 h3 {
-
     font-size: 1.1rem;
     margin-bottom: 1rem;
 }
@@ -39,32 +44,9 @@ label {
     font-size: 0.9rem;
 }
 
-select {
-    font-family: 'Roboto Mono', monospace;
-    text-align: center;
-    font-size: 0.8rem;
-
-    border: none;
-    background: transparent;
-    color: white;
-}
-
-
-.noBorder {
-    border: none;
-}
-
-.backgroundWhite {
-    position: absolute;
-
-    background: white;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--background);
-}
-
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
 input {
     text-align: center;
     background: none;
@@ -77,17 +59,17 @@ input {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* -webkit-appearance: none; */
     background: transparent;
     margin: 0;
 }
 
-/* input[type=number] {
-    -moz-appearance: textfield;
-} */
+input::placeholder {
+    color: var(--text);
+    opacity: 0.5;
+}
 
-.largerText {
-    font-size: 1.1rem;
+input::-ms-input-placeholder {
+    color: var(--text);
 }
 
 textarea:focus,
@@ -96,28 +78,24 @@ select:focus {
     outline: none;
 }
 
-input::placeholder {
-    color: var(--text);
-    opacity: 0.5;
-    /* Firefox */
+select {
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    font-size: 0.8rem;
+    border: none;
+    background: transparent;
+    color: white;
 }
 
-input::-ms-input-placeholder {
-    /* Edge 12 -18 */
-    color: var(--text);
-}
-
-.gap {
-    gap: 5px;
-}
-
-.removeBorder {
-    border-color: transparent;
-}
-
-.roundedEdges {
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+/* ========================================
+   LAYOUT CLASSES
+   ======================================== */
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .flexRow {
@@ -143,31 +121,89 @@ input::-ms-input-placeholder {
     flex-direction: column;
 }
 
-.container {
+/* ========================================
+   COMPONENT STYLES
+   ======================================== */
+.item {
+    align-self: flex-start;
     position: relative;
+    padding: 20px 0px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: auto;
+    overflow: hidden;
 }
 
-.reallyTall {
-    position: relative;
-    height: 800px;
+.backgroundMain {
+    background: var(--main);
 }
 
-.absolute {
+.roundedEdges {
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.whiteBackground {
     position: absolute;
+    width: 100%;
+    height: 40%;
+    padding: 3px 10px 0px 10px;
+    background: var(--text);
 }
 
+/* ========================================
+   STATS & TRACKERS
+   ======================================== */
+.statListContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+}
+
+.individualStatContainer,
+.individualTrackerContainer {
+    position: relative;
+    border: 1px solid var(--text);
+    overflow: hidden;
+}
+
+.individualStatContainer {
+    width: 100%;
+}
+
+.individualTrackerContainer {
+    align-self: flex-start;
+}
+
+.individualStatContainer:hover,
+.individualTrackerContainer:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.statLabel {
+    z-index: 1;
+    margin: 0rem 1rem;
+    position: relative;
+    text-align: center;
+    color: var(--background);
+}
+
+.statInput {
+    width: 3rem;
+}
+
+#TOTAL {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+/* ========================================
+   SKILLS SECTION
+   ======================================== */
 .skillHolderTitle {
     width: 100%;
     text-align: center;
     padding: 3rem 0rem 1rem 0rem;
-}
-
-.width100 {
-    width: 100%;
 }
 
 .skillHolder {
@@ -177,96 +213,19 @@ input::-ms-input-placeholder {
     align-items: flex-start;
     max-height: 10rem;
     overflow: scroll;
-    padding: 0rem 0.5rem 0rem 0.5rem;
+    padding: 0rem 0.5rem;
     box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
     -webkit-box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
     -moz-box-shadow: 0px -26px 20px -35px rgba(0, 0, 0, 0.49) inset;
 }
 
-.backgroundMain {
-    background: var(--main);
+.attributeDisplayForSkills {
+    margin: 0 0 1rem 0;
 }
 
-.setHeight {
-    height: 50px !important;
-}
-
-.setLargerHeight {
-    height: 80px !important;
-}
-
-.gapLarger {
-    gap: 20px;
-}
-
-.marginBottom {
-    margin-bottom: 1rem;
-}
-
-.cyberwareSlot {
-    padding: 10px 5px 10px 5px;
-    border: 1px solid white;
-}
-
-.item {
-    align-self: flex-start;
-    position: relative;
-    padding: 20px 0px 20px 0px;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-}
-
-.gapLarger {
-    gap: 23px;
-}
-
-.sideBars {
-    font-size: 1.3rem;
-
-}
-
-.individualTrackerContainer {
-    position: relative;
-    align-self: flex-start;
-    overflow: hidden;
-    border: 1px solid var(--text);
-}
-
-.individualStatContainer {
-    position: relative;
-    border: 1px solid var(--text);
-    overflow: hidden;
-    width: 100%;
-}
-
-.individualStatContainer:hover {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.individualTrackerContainer:hover {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.statInput {
-    width: 3rem;
-}
-
-.statLabel {
-    z-index: 1;
-    margin: 0rem 1rem 0rem 1rem;
-    position: relative;
-    text-align: center;
-    color: var(--background);
-}
-
-.statListContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-column-gap: 15px;
-    grid-row-gap: 10px;
-}
-
+/* ========================================
+   BUTTONS
+   ======================================== */
 .addButton {
     margin-top: 20px;
     background: transparent;
@@ -277,13 +236,67 @@ input::-ms-input-placeholder {
     width: 50px;
 }
 
+.addButton:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 10px var(--main);
+    background: var(--text);
+    color: var(--main);
+}
+
+/* ========================================
+   CYBERWARE
+   ======================================== */
+.cyberwareSlot {
+    padding: 10px 5px;
+    border: 1px solid white;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.gap {
+    gap: 5px;
+}
+
+.gapLarger {
+    gap: 23px;
+}
+
+.noBorder {
+    border: none;
+}
+
+.removeBorder {
+    border-color: transparent;
+}
+
+.largerText {
+    font-size: 1.1rem;
+}
+
+.setHeight {
+    height: 50px !important;
+}
+
+.setLargerHeight {
+    height: 80px !important;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.width100 {
+    width: 100%;
+}
+
 .alignLeft {
     align-self: flex-start;
     text-align: start;
-}
-
-.attributeDisplayForSkills {
-    margin: -0rem 0 1rem 0;
 }
 
 .alignRight {
@@ -295,38 +308,16 @@ input::-ms-input-placeholder {
     text-align: start;
 }
 
-.addButton:hover {
-    cursor: pointer;
-    box-shadow: inset 0 0 10px var(--main);
-    background: var(--text);
-    color: var(--main);
-}
-
-.skillBonusNumber {
-    text-align: center;
-    margin-right: -.5rem;
-    font-size: 1.2rem;
-}
-
-#TOTAL {
-    text-align: center;
-    font-size: 1.3rem;
-}
-
-.skillName {
-    border: none;
-}
-
-.damageDice {
-    margin: 0;
-    width: 1rem;
-}
-
 .border {
     border: 1px solid white;
     padding: 5px;
 }
 
+.sideBars {
+    font-size: 1.3rem;
+}
+
+/* Input size modifiers */
 .inputSmaller {
     width: 2rem !important;
 }
@@ -339,19 +330,10 @@ input::-ms-input-placeholder {
     width: 90% !important;
 }
 
-.whiteBackground {
-    position: absolute;
-    width: 100%;
-    height: 40%;
-    padding: 3px 10px 0px 10px;
-    background: var(--text);
-}
-
+/* ========================================
+   MEDIA QUERIES
+   ======================================== */
 @media screen and (min-width: 800px) {
-
-    /* select, p, label, input{
-        font-size:0.9rem;
-    } */
     .container {
         margin-right: 5px;
         display: grid;
