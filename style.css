@@ -2,9 +2,10 @@
    CSS VARIABLES
    ======================================== */
 :root {
-    --main: rgba(179, 71, 71, 0.7);
-    --background: #1b1b1b;
-    --text: #ffffff;
+    --main: rgba(255, 255, 255, 0.12);
+    --background: #5d1414;
+    --text: rgba(255, 255, 255, 0.98);
+    --lighter-white: rgba(255, 255, 255, 0.2);
 }
 
 /* ========================================
@@ -16,6 +17,7 @@ body {
     flex-direction: column;
     align-items: center;
     background: var(--background);
+    color: var(--text);
 }
 
 h1,
@@ -84,7 +86,7 @@ select {
     font-size: 0.8rem;
     border: none;
     background: transparent;
-    color: white;
+    color: var(--text);
 }
 
 /* ========================================
@@ -140,6 +142,7 @@ select {
 .roundedEdges {
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    border: 1px solid var(--lighter-white);
 }
 
 .whiteBackground {
@@ -163,7 +166,6 @@ select {
 .individualStatContainer,
 .individualTrackerContainer {
     position: relative;
-    border: 1px solid var(--text);
     overflow: hidden;
 }
 
@@ -230,7 +232,7 @@ select {
     margin-top: 20px;
     background: transparent;
     color: var(--text);
-    border: 1px solid var(--text);
+    border: 1px solid var(--lighter-white);
     border-radius: 50px;
     height: 50px;
     width: 50px;
@@ -248,14 +250,14 @@ select {
    ======================================== */
 .cyberwareSlot {
     padding: 10px 5px;
-    border: 1px solid white;
+    border: 1px solid var(--lighter-white);
 }
 
 /* ========================================
    UTILITY CLASSES
    ======================================== */
 .gap {
-    gap: 5px;
+    gap: 10px;
 }
 
 .gapLarger {
@@ -309,7 +311,7 @@ select {
 }
 
 .border {
-    border: 1px solid white;
+    border: 1px solid var(--lighter-white);
     padding: 5px;
 }
 
